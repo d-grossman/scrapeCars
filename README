@@ -2,3 +2,13 @@ How lazy can I be making a dataset of car images
 
 car make and models derived from: https://github.com/n8barr/automotive-model-year-data
 most popular car colors : http://www.forbes.com/pictures/egdh45ijhf/1-white/#413d9991b1d4
+
+-----
+general workflow:
+  make a datafile of all the URLS to crawl
+  use datafile to download the URLS to local files
+  verify the filetypes are accurate (only want images)
+  verify the file contents using resenet50 (only want images containing a specific thing..)
+  generate additional classes/tags for future training
+  
+  

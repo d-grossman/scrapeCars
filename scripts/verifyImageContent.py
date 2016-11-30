@@ -10,6 +10,7 @@ from resnet50 import ResNet50
 from keras.preprocessing import image
 from imagenet_utils import preprocess_input, decode_predictions
 
+# read the tasking file into a list
 def readTasking(fname):
     af = open(fname,'r')
     data = list()
@@ -19,47 +20,55 @@ def readTasking(fname):
     return data
 
 
+# search tasking for interesting tags
 def proc(taskFile,rootDir,atOnce=10000):
     model = ResNet50(weights='imagenet')
         
     good = list()
     bad = list()
     ugly = list()
-    
     count = 0
-
     interesting = set()
+
     for x in ['car','pickup','suv','truck','crossover','van','minivan','sports_car','cab','racer','convertible','car_wheel','jeep','ambulance']:
         interesting.add(x)
     
     data = readTasking(taskFile)
     start = time.time() 
+
     for d in data:
 
         img_path = '{0}/{1}'.format(rootDir,d['filename'])
+
         flag = True
 
         try:
             img = image.load_img(img_path, target_size=(224, 224)) 
         
         except:
+            # ugly this is not a decodable image
             ugly.append(d)
             flag = False
  
         if flag:
+
             x = image.img_to_array(img)
             x = np.expand_dims(x, axis=0)
             x = preprocess_input(x)
             preds = model.predict(x)
             predictions = decode_predictions(preds)[0][:4]
+
             found = False
+
             for prediction in predictions:
                 i,t,score = prediction
                 if t in interesting:
+                    # image was interesting
                     good.append((d,t))
                     found = True
                     break
             if not found:
+                # image was not interesting
                 bad.append((d,predictions[0][1]))
 
         if count == atOnce:
@@ -72,6 +81,7 @@ def proc(taskFile,rootDir,atOnce=10000):
 
     return (good,bad,ugly)
 
+# json encode each line of a list to a file
 def writeList(l,fname):
     fn = open(fname,'w')
     for item in l:
@@ -79,6 +89,9 @@ def writeList(l,fname):
     fn.close()
 
 def main():
+    # argv[1] should be the tasking file to use
+    # argv[2] should be the root prefix of the directory with the 
+    # images not ending in a /
     good,bad,ugly = proc(sys.argv[1],sys.argv[2])
 
     writeList(good,argv[1]+'.good')

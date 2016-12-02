@@ -30,7 +30,7 @@ def proc(taskFile,rootDir,atOnce=10000):
     count = 0
     interesting = set()
 
-    for x in ['car','pickup','suv','truck','crossover','van','minivan','sports_car','cab','racer','convertible','car_wheel','jeep','ambulance']:
+    for x in ['car','pickup','suv','truck','crossover','van','minivan','sports_car','cab','racer','convertible','jeep','ambulance']:
         interesting.add(x)
     
     data = readTasking(taskFile)

@@ -1,6 +1,4 @@
-from resnet50 import ResNet50
 from keras.preprocessing import image
-from imagenet_utils import preprocess_input, decode_predictions
 import numpy as np
 import json
 import time
@@ -44,7 +42,7 @@ def writeTasking(filename, tasking, bad):
         
 def main():
     procLine = functools.partial(procLine2, r=sys.argv[2] )
-    p = Pool()
+    p = Pool(50)
     tasking = readTasking(sys.argv[1])
     files = p.map(procLine,tasking)
     writeTasking(sys.argv[1]+'.new',tasking,files)

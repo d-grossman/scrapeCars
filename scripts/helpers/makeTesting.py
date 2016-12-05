@@ -1,10 +1,12 @@
 import json
 import random
 
+
 def main():
     items = 0
 
     testing = open('testing', 'w')
+    training = open('training', 'w')
     tasking = open('allFiles', 'r')
 
     cars = dict()
@@ -22,16 +24,16 @@ def main():
     tasking.close()
 
     for make in cars.keys():
-       for model in cars[make].keys():
-           carray = cars[make][model] 
-           number = len(carray)
-           tp = int(number * 0.20)
-           random.shuffle(carray)
-           keys = carray[:tp]
-           print(len(keys),len(carray))
-           for key in keys:
-               testing.write('{0}\n'.format(key))
-            
+        for model in cars[make].keys():
+            carray = cars[make][model]
+            number = len(carray)
+            tp = int(number * 0.20)
+            random.shuffle(carray)
+            keys = carray[:tp]
+            print(len(keys), len(carray))
+            for key in keys:
+                testing.write('{0}\n'.format(key))
+
     testing.close()
 
 if __name__ == '__main__':

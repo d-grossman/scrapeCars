@@ -11,5 +11,6 @@ general workflow:
   verify the filetypes are accurate (only want images)
   verify the file contents using ResNet50 (only want images containing a specific thing..)
   generate additional classes/tags for future training
-  
-  
+  cut dataset into training and testing
+  ...
+  profit

@@ -1,5 +1,6 @@
 import os
 
+
 def main():
     carfile = open('cars', 'r')
     colorfile = open('colors', 'r')

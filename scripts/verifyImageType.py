@@ -3,12 +3,10 @@ import json
 import sys
 from multiprocessing import Pool
 
-import numpy as np
 from keras.preprocessing import image
 
 
 def readTasking(filename):
-
     tasking = open(filename, 'r')
     data = list()
 

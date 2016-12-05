@@ -1,9 +1,7 @@
 import json
-import random
+
 
 def main():
-    items = 0
-
     testing = open('testing', 'r')
     tasking = open('allFiles', 'r')
     training = open('training', 'w')
@@ -16,7 +14,7 @@ def main():
         testSet.add(d['hash'])
     testing.close()
 
-    for task in tasking:     
+    for task in tasking:
         task2 = task.strip()
         d = json.loads(task2)
         if d['hash'] not in testSet:

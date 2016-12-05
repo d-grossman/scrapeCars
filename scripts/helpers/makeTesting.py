@@ -3,10 +3,8 @@ import random
 
 
 def main():
-    items = 0
 
     testing = open('testing', 'w')
-    training = open('training', 'w')
     tasking = open('allFiles', 'r')
 
     cars = dict()

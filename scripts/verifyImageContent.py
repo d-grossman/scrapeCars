@@ -23,14 +23,15 @@ def readTasking(fname):
 
 # search tasking for interesting tags
 def proc(taskFile, rootDir, atOnce=10000):
-    model = ResNet50(weights='imagenet')
-
     good = list()
     bad = list()
     ugly = list()
+    interesting = set()
+
     count = 0
     im = 0
-    interesting = set()
+
+    model = ResNet50(weights='imagenet')
 
     for x in ['car', 'pickup', 'suv', 'truck', 'crossover', 'van', 'minivan',
               'sports_car', 'cab', 'racer', 'convertible', 'jeep', 'ambulance']:
@@ -39,7 +40,7 @@ def proc(taskFile, rootDir, atOnce=10000):
 
     data = readTasking(taskFile)
 
-    s = time.time()
+    startTime = time.time()
     for d in data:
 
         img_path = '{0}/{1}'.format(rootDir, d['filename'])
@@ -77,11 +78,11 @@ def proc(taskFile, rootDir, atOnce=10000):
 
         if count == atOnce:
             count = 0
-            z = time.time() - s
+            endTime = time.time() - startTime
             im = im + 1
             print('processed:', im * atOnce, 'Images', 'good',
-                  len(good), 'bad', len(bad), 'file', len(file), z)
-            s = time.time()
+                  len(good), 'bad', len(bad), 'file', len(file), endTime)
+            startTime = time.time()
         count = count + 1
 
     return (good, bad, ugly)

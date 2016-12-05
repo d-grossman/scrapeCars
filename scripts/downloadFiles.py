@@ -9,6 +9,7 @@ from pathlib import Path
 import requests
 
 
+# put return n itmes at a time from an interable
 def grouper(n, iterable):
     it = iter(iterable)
     while True:
@@ -16,6 +17,9 @@ def grouper(n, iterable):
         if not chunk:
             return
         yield chunk
+
+# download an image from a url
+# return success/failure and the task to caller
 
 
 def workFunc(task):
@@ -34,6 +38,7 @@ def workFunc(task):
         return((True, task))
 
 
+# read in tasking for files not already downloaded
 def readTasking(fname):
     taskList = list()
     tasking = open(fname, 'r')
@@ -55,10 +60,10 @@ def main(atOnce=1000):
     # fileType,color,make,odel,url,namehash
     fname = sys.argv[1]
 
+    # get listing of files to download
     taskList = readTasking(fname)
 
     print('processed {0} lines to download'.format(len(taskList)))
-
     print('tasking loaded')
 
     good = open(fname + '.good', 'w')

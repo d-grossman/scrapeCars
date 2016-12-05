@@ -43,6 +43,7 @@ def get_soup(url, header):
     return BeautifulSoup(urllib2.urlopen(urllib2.Request(url, headers=header)), 'html.parser')
 
 
+# format item metadata
 def makeLine(color, make, model, img, Type):
     d = dict()
     d['make'] = make
@@ -53,7 +54,7 @@ def makeLine(color, make, model, img, Type):
     d['hash'] = m.hexdigest()
     d['filename'] = '{0}/{1}/{2}.{3}'.format(color, make, d['hash'], Type)
     d['url'] = img
-    return json.puts(d)
+    return d
 
 
 # for a specific make model and color of car attempt to get num images
@@ -75,12 +76,12 @@ def getCAR(color, makeIn, modelIn, num, outFile, outError):
             if Type is not None:
                 # write out where to get the image from
                 data = makeLine(color, makeIn, modelIn, img, Type)
-                outFile.write(data + '\n')
+                outFile.write(json.puts(data) + '\n')
 
     except:
         # spout some error messages when things go poorly
         data = makeLine(color, makeIn, modelIn, img, 'FAIL')
-        outError.write(data + '\n')
+        outError.write(json.puts(data) + '\n')
 
 
 def main(imagesPerMakeModel=100):

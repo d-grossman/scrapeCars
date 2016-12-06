@@ -72,7 +72,7 @@ def main(atOnce=1000):
     # do the downloads in batches
     for batch in grouper(atOnce, taskList):
 
-        retval = p.map(workFunc, taskList)
+        retval = p.map(workFunc, batch)
 
         for r, t in retval:
             if r:

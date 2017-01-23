@@ -1,7 +1,8 @@
 import json
 from hashlib import md5
+from urllib.request import Request
+from urllib.request import urlopen
 
-import urllib2
 from bs4 import BeautifulSoup
 
 
@@ -40,7 +41,9 @@ def readColors(colorFile):
 
 # download a file with a given user-agent string
 def get_soup(url, header):
-    return BeautifulSoup(urllib2.urlopen(urllib2.Request(url, headers=header)), 'html.parser')
+    # return BeautifulSoup(urllib2.urlopen(urllib2.Request(url,
+    # headers=header)), 'html.parser')
+    return BeautifulSoup(urlopen(Request(url, headers=header)), 'html.parser')
 
 
 # format item metadata
@@ -50,7 +53,8 @@ def makeLine(color, make, model, img, Type):
     d['model'] = model
     d['color'] = color
     text = '' + color + make + model + img
-    m = md5.new(text)
+    m = md5()
+    m.update(text.encode('utf-8'))
     d['hash'] = m.hexdigest()
     d['filename'] = '{0}/{1}/{2}.{3}'.format(color, make, d['hash'], Type)
     d['url'] = img
@@ -77,7 +81,7 @@ def getCAR(color, makeIn, modelIn, num, outFile, outError):
             if Type is not None:
                 # write out where to get the image from
                 data = makeLine(color, makeIn, modelIn, img, Type)
-                outFile.write(json.puts(data) + '\n')
+                outFile.write(json.dumps(data) + '\n')
 
     except:
         # spout some error messages when things go poorly

@@ -1,6 +1,6 @@
 import json
+from hashlib import md5
 
-import md5
 import urllib2
 from bs4 import BeautifulSoup
 

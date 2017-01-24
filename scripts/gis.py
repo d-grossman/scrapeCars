@@ -67,7 +67,10 @@ def getCAR(color, makeIn, modelIn, num, outFile, outError):
     make = makeIn.replace(' ', '+')
     model = modelIn.replace(' ', '+')
     query = '{0}+{1}+{2}'.format(color, make, model)
+    # query with no usage rights
     # url = 'https://www.google.co.in/search?q=' + query + '&source=lnms&tbm=isch'
+    
+    # return images with appropriate usage rights
     url = 'https://www.google.co.in/search?q=' + query + '&tbs=sur:fc&tbm=isch'
     header = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36'}

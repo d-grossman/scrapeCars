@@ -5,6 +5,7 @@ import sys
 from io import open as iopen
 from multiprocessing import Pool
 from pathlib import Path
+from tqdm import tqdm
 
 import requests
 
@@ -31,11 +32,13 @@ def workFunc(task):
         return((False, task))
 
     if i.status_code == requests.codes.ok:
-        filename = '{0}'.format(task['filename'])
+        filename = '{0}'.format(task['filename'].replace(' ','_'))
         f = iopen(filename, 'wb')
         f.write(i.content)
         f.close()
         return((True, task))
+    else:
+        return((False, task))
 
 
 # read in tasking for files not already downloaded
@@ -70,15 +73,18 @@ def main(atOnce=1000):
     bad = open(fname + '.bad', 'w')
 
     # do the downloads in batches
-    for batch in grouper(atOnce, taskList):
+    for batch in tqdm(grouper(atOnce, taskList)):
 
         retval = p.map(workFunc, batch)
 
         for r, t in retval:
             if r:
-                good.write(json.dumps(t))
+                good.write(json.dumps(t)+'\n')
             else:
-                bad.write(json.dumps(t))
+                bad.write(json.dumps(t)+'\n')
+
+        good.flush()
+        bad.flush()
 
     good.close()
     bad.close()

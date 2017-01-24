@@ -57,7 +57,8 @@ def makeLine(color, make, model, img, Type):
     m = md5()
     m.update(text.encode('utf-8'))
     d['hash'] = m.hexdigest()
-    d['filename'] = '{0}/{1}/{2}.{3}'.format(color, make, d['hash'], Type)
+    fname = '{0}/{1}/{2}.{3}'.format(color, make, d['hash'], Type)
+    d['filename'] = fname.replace(' ','_')
     d['url'] = img
     return d
 

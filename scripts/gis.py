@@ -4,6 +4,7 @@ from urllib.request import Request
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 
 # read the make and model from a file
@@ -96,7 +97,7 @@ def main(imagesPerMakeModel=100):
     outFile = open('dataset', 'w')
     outError = open('errorset', 'w')
 
-    for color in colors:
+    for color in tqdm(colors):
         for make in cars.keys():
             for model in cars[make]:
                 # time.sleep(2)

@@ -33,8 +33,20 @@ def proc(taskFile, rootDir, atOnce=10000):
 
     model = ResNet50(weights='imagenet')
 
-    for x in ['car', 'pickup', 'suv', 'truck', 'crossover', 'van', 'minivan',
-              'sports_car', 'cab', 'racer', 'convertible', 'jeep', 'ambulance']:
+    for x in [
+        'car',
+        'pickup',
+        'suv',
+        'truck',
+        'crossover',
+        'van',
+        'minivan',
+        'sports_car',
+        'cab',
+        'racer',
+        'convertible',
+        'jeep',
+            'ambulance']:
 
         interesting.add(x)
 

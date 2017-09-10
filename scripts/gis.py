@@ -58,7 +58,7 @@ def makeLine(color, make, model, img, Type):
     m.update(text.encode('utf-8'))
     d['hash'] = m.hexdigest()
     fname = '{0}/{1}/{2}.{3}'.format(color, make, d['hash'], Type)
-    d['filename'] = fname.replace(' ','_')
+    d['filename'] = fname.replace(' ', '_')
     d['url'] = img
     return d
 
@@ -70,7 +70,7 @@ def getCAR(color, makeIn, modelIn, num, outFile, outError):
     query = '{0}+{1}+{2}'.format(color, make, model)
     # query with no usage rights
     # url = 'https://www.google.co.in/search?q=' + query + '&source=lnms&tbm=isch'
-    
+
     # return images with appropriate usage rights
     url = 'https://www.google.co.in/search?q=' + query + '&tbs=sur:fc&tbm=isch'
     header = {
@@ -105,7 +105,13 @@ def main(imagesPerMakeModel=100):
         for make in cars.keys():
             for model in cars[make]:
                 # time.sleep(2)
-                getCAR(color, make, model, imagesPerMakeModel, outFile, outError)
+                getCAR(
+                    color,
+                    make,
+                    model,
+                    imagesPerMakeModel,
+                    outFile,
+                    outError)
                 outFile.flush()
                 outError.flush()
 

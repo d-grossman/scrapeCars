@@ -32,7 +32,7 @@ def workFunc(task):
         return((False, task))
 
     if i.status_code == requests.codes.ok:
-        filename = '{0}'.format(task['filename'].replace(' ','_'))
+        filename = '{0}'.format(task['filename'].replace(' ', '_'))
         f = iopen(filename, 'wb')
         f.write(i.content)
         f.close()
@@ -79,9 +79,9 @@ def main(atOnce=1000):
 
         for r, t in retval:
             if r:
-                good.write(json.dumps(t)+'\n')
+                good.write(json.dumps(t) + '\n')
             else:
-                bad.write(json.dumps(t)+'\n')
+                bad.write(json.dumps(t) + '\n')
 
         good.flush()
         bad.flush()

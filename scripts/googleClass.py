@@ -8,14 +8,18 @@ from bs4 import BeautifulSoup
 
 def getNumber(words):
 
-    r = requests.get('http://www.google.com/search',
-                     params={'q': '"' + words + '"',
-                             'tbs': 'li:1'},
-                     headers={
-                         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'}
-                     )
+    r = requests.get(
+        'http://www.google.com/search',
+        params={
+            'q': '"' + words + '"',
+            'tbs': 'li:1'},
+        headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'})
     soup = BeautifulSoup(r.text, 'lxml')
-    return soup.find('div', {'id': 'resultStats'}).text.split(' ')[1].replace(',', '')
+    return soup.find(
+        'div', {
+            'id': 'resultStats'}).text.split(' ')[1].replace(
+        ',', '')
 
 
 def main():
